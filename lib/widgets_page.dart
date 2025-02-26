@@ -75,7 +75,26 @@ class WidgetsPage extends StatelessWidget {
                 onPressed: (){},
                 child: Text("Delete")
             ),
-          ],)
+          ],),
+          Stack(
+            children: [
+              Container(
+                height: 200,
+                width: 200,
+                color: Colors.green,
+              ),
+              Container(
+                height: 150,
+                width: 150,
+                color: Colors.blue,
+              ),
+              Container(
+                height: 100,
+                width: 100,
+                color: Colors.red,
+              ),
+            ],
+          )
         ],
       ),
     );
