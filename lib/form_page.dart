@@ -33,7 +33,7 @@ class _FormPageState extends State<FormPage> {
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                 child: TextFormField(
-                  validator: (value) => value!.isEmpty ? 'Escribe tu(s) nombre(s)' : null,
+                  validator: (value) => value!.isEmpty ? 'Escribe tu(s) nombre(s)...!' : null,
                   onSaved: (value)=> nombre = value,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.account_circle),
@@ -55,6 +55,8 @@ class _FormPageState extends State<FormPage> {
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                 child: TextFormField(
+                  validator: (value) => value!.isEmpty ? 'Escribe tu apellido paterno...!' : null,
+                  onSaved: (value)=> aPaterno = value,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.account_circle),
                     labelText: "Apellido Paterno",
@@ -75,6 +77,8 @@ class _FormPageState extends State<FormPage> {
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                 child: TextFormField(
+                  validator: (value) => value!.isEmpty ? 'Escribe tu apellido materno...!' : null,
+                  onSaved: (value)=> aMaterno = value,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.account_circle),
                     labelText: "Apellido Materno",
@@ -95,6 +99,8 @@ class _FormPageState extends State<FormPage> {
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                 child: TextFormField(
+                  validator: (value) => value!.isEmpty ? 'Escribe tu correo electrónico...!' : null,
+                  onSaved: (value)=> correo = value,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.email),
                     labelText: "Correo Electrónico",
@@ -115,9 +121,12 @@ class _FormPageState extends State<FormPage> {
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                 child:TextFormField(
+                  validator: (value) => value!.isEmpty ? 'Escribe tu contraseña...!' : value.length < 8 ? 'Contraseña debe ser mínimo de 8 cars...!' : null,
+                  onSaved: (value)=> password = value,
+                  obscureText: true,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.calendar_month),
-                    labelText: "Edad",
+                    prefixIcon: Icon(Icons.password),
+                    labelText: "Contraseña",
                     labelStyle: TextStyle(color: Colors.blue),
                     isDense: true,
                     border: OutlineInputBorder(
@@ -144,6 +153,20 @@ class _FormPageState extends State<FormPage> {
                     onPressed: (){
                       if(_formKey.currentState!.validate()){
                         _formKey.currentState!.save();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              duration: Duration(seconds: 3),
+                              showCloseIcon: true,
+                              backgroundColor: Colors.green,
+                              content: Row(
+                                children: [
+                                  Icon(Icons.check_circle, color: Colors.white,),
+                                  SizedBox(width: 10,),
+                                  Expanded(child: Text("Información guardada con éxito!!!"))
+                                ],
+                              )
+                          )
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey, foregroundColor: Colors.white),
