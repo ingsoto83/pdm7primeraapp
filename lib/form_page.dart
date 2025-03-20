@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pdm7primeraapp/travel_place_page.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
@@ -14,6 +15,7 @@ class _FormPageState extends State<FormPage> {
   String? aMaterno = '';
   String? correo = '';
   String? password ='';
+  bool passVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -123,9 +125,17 @@ class _FormPageState extends State<FormPage> {
                 child:TextFormField(
                   validator: (value) => value!.isEmpty ? 'Escribe tu contraseña...!' : value.length < 8 ? 'Contraseña debe ser mínimo de 8 cars...!' : null,
                   onSaved: (value)=> password = value,
-                  obscureText: true,
+                  obscureText: passVisible ? false : true,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.password),
+                    suffixIcon: GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          passVisible = !passVisible;
+                        });
+                      },
+                      child: Icon(passVisible ? Icons.visibility_off : Icons.visibility)
+                    ),
                     labelText: "Contraseña",
                     labelStyle: TextStyle(color: Colors.blue),
                     isDense: true,
@@ -145,7 +155,9 @@ class _FormPageState extends State<FormPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      _formKey.currentState!.reset();
+                    },
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.grey, foregroundColor: Colors.white),
                     child: Text("Limpiar")
                 ),
@@ -153,7 +165,7 @@ class _FormPageState extends State<FormPage> {
                     onPressed: (){
                       if(_formKey.currentState!.validate()){
                         _formKey.currentState!.save();
-                        ScaffoldMessenger.of(context).showSnackBar(
+                        /*ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                               duration: Duration(seconds: 3),
                               showCloseIcon: true,
@@ -166,7 +178,8 @@ class _FormPageState extends State<FormPage> {
                                 ],
                               )
                           )
-                        );
+                        );*/
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> TravelPlacePage()));
                       }
                     },
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey, foregroundColor: Colors.white),

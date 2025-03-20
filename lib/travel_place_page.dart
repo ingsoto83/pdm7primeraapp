@@ -47,6 +47,16 @@ class TravelPlacePage extends StatelessWidget {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Ejemplo Navegación"),
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            Navigator.pop(context);
+          },
+           backgroundColor: Colors.red,
+          child: Icon(Icons.chevron_left),
+      ),
       body: OrientationBuilder(
           builder: (context, orientation) {
             if(orientation == Orientation.portrait){
